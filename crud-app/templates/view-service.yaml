@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "crud-app.fullname" . }}-view
+spec:
+  type: {{ .Values.view.service.type }}
+  ports:
+    - port: {{ .Values.view.service.port }}
+      targetPort: 5173
+  selector:
+    app: {{ include "crud-app.name" . }}-view

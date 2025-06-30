@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "crud-app.fullname" . }}-view
+spec:
+  replicas: {{ .Values.view.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "crud-app.name" . }}-view
+  template:
+    metadata:
+      labels:
+        app: {{ include "crud-app.name" . }}-view
+    spec:
+      containers:
+        - name: view
+          image: "{{ .Values.view.image.repository }}:{{ .Values.view.image.tag }}"
+          imagePullPolicy: {{ .Values.view.image.pullPolicy }}
+          ports:
+            - containerPort: 5173
