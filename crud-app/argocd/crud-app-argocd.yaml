@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crud-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/LAyari02/crud-app-gitops-demo-gitops.git'
+    targetRevision: HEAD
+    path: 'crud-app'    # <-- chemin vers ton chart Helm
+    helm:
+      valueFiles:
+        - values.yaml   # si tu as un fichier values.yaml à la racine de crud-app
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default   # namespace où tu veux déployer
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
