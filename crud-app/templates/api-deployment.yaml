@@ -12,6 +12,8 @@ spec:
       labels:
         app: {{ include "crud-app.name" . }}-api
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: api
           image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
@@ -21,9 +23,4 @@ spec:
           env:
             - name: DB_HOST
               value: {{ include "crud-app.fullname" . }}-mysql
-            - name: DB_USER
-              value: {{ .Values.mysql.user }}
-            - name: DB_PASSWORD
-              value: {{ .Values.mysql.password }}
-            - name: DB_NAME
-              value: {{ .Values.mysql.database }}
+            - name
